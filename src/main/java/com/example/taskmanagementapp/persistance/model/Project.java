@@ -1,17 +1,13 @@
 package com.example.taskmanagementapp.persistance.model;
 
-import lombok.*;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
+@Data
 @Entity
 @Table(name = "project")
 public class Project {
@@ -30,16 +26,17 @@ public class Project {
     @JoinColumn(name = "project_id")
     private Set<Task> tasks;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Project project = (Project) o;
-        return Objects.equals(id, project.id) && Objects.equals(name, project.name) && Objects.equals(dateCreated, project.dateCreated);
+    public Project(String name, LocalDate dateCreated) {
+        this.name = name;
+        this.dateCreated = dateCreated;
+        this.tasks = new HashSet<>();
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, dateCreated);
+    protected Project() {
+    }
+
+    public Project(Project project) {
+        this(project.getName(), project.getDateCreated());
+        this.tasks = new HashSet<>(project.getTasks());
     }
 }

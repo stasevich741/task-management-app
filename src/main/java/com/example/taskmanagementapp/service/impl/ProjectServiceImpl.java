@@ -3,18 +3,21 @@ package com.example.taskmanagementapp.service.impl;
 import com.example.taskmanagementapp.persistance.model.Project;
 import com.example.taskmanagementapp.persistance.repository.IProjectRepository;
 import com.example.taskmanagementapp.service.IProjectService;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
-@Slf4j
 @Service
 public class ProjectServiceImpl implements IProjectService {
 
-    @Autowired
+    //    @Autowired
     private IProjectRepository projectRepository;
+
+    public ProjectServiceImpl(IProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
+    }
 
     @Override
     public Optional<Project> findById(Long id) {
@@ -23,6 +26,14 @@ public class ProjectServiceImpl implements IProjectService {
 
     @Override
     public Project save(Project project) {
+        if (StringUtils.isEmpty(project.getId())) {
+            project.setDateCreated(LocalDate.now());
+        }
         return projectRepository.save(project);
+    }
+
+    @Override
+    public Iterable<Project> findAll() {
+        return projectRepository.findAll();
     }
 }
