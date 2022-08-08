@@ -1,8 +1,10 @@
 package com.example.taskmanagementapp.persistance.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public enum TaskStatus {
     //@formatter:off
     TO_DO("To Do"),
@@ -13,7 +15,4 @@ public enum TaskStatus {
 
     private final String label;
 
-    private TaskStatus(String label) {
-        this.label = label;
-    }
 }
