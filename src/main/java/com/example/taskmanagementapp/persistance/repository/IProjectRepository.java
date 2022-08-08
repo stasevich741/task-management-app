@@ -1,12 +1,9 @@
 package com.example.taskmanagementapp.persistance.repository;
 
 import com.example.taskmanagementapp.persistance.model.Project;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-import java.util.Optional;
+//@Repository
+public interface IProjectRepository extends PagingAndSortingRepository<Project, Long> {
 
-public interface IProjectRepository {
-
-    Optional<Project> findById(Long id);
-
-    Project save(Project project);
 }
