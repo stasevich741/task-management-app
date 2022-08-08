@@ -28,5 +28,9 @@ public class Project {
         this(project.getId(), project.getName(), project.getDateCreated());
     }
 
-
+    public Project(String name, LocalDate dateCreated) {
+        this.id = new Random().nextLong();
+        this.name = name;
+        this.dateCreated = dateCreated;
+    }
 }

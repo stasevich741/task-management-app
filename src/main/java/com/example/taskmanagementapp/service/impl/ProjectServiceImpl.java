@@ -16,13 +16,14 @@ public class ProjectServiceImpl implements IProjectService {
     @Autowired
     private IProjectRepository projectRepository;
 
-    Optional<Project> findById(Long id) {
+    @Override
+    public Optional<Project> findById(Long id) {
         log.debug("project service >> finding project by id {}", id);
         return projectRepository.findById(id);
     }
 
-
-    Project save(Project project) {
+    @Override
+    public Project save(Project project) {
         log.debug("project service >> saving project {}", project);
         return projectRepository.save(project);
     }
