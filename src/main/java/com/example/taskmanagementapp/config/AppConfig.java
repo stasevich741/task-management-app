@@ -1,4 +1,4 @@
-package com.example.taskmanagementapp.configuration;
+package com.example.taskmanagementapp.config;
 
 import org.springframework.context.annotation.Configuration;
 
