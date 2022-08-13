@@ -4,11 +4,16 @@ import com.example.taskmanagementapp.persistance.model.Project;
 import com.example.taskmanagementapp.service.IProjectService;
 import com.example.taskmanagementapp.web.dto.ProjectDto;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-@RestController
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
 @RequestMapping(value = "/projects")
 public class ProjectController {
 
@@ -28,6 +33,15 @@ public class ProjectController {
     @PostMapping
     public void create(@RequestBody ProjectDto newProject) {
         this.projectService.save(convertToEntity(newProject));
+    }
+
+    @GetMapping
+    public String getProjects(Model model) {
+        Iterable<Project> projects = projectService.findAll();
+        List<ProjectDto> projectDtos = new ArrayList<>();
+        projects.forEach(p -> projectDtos.add(convertToDto(p)));
+        model.addAttribute("projects", projectDtos);
+        return "projects";
     }
 
     private ProjectDto convertToDto(Project entity) {
